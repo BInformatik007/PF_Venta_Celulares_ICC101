@@ -14,7 +14,7 @@ int main() {
 #define VENDIDO 1
 #define NO_VENDIDO 0
 
-
+    //dshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 //awgggggggggggggggggggggggggggggggggggggggggggggggggggdsh
 
     int n = 0; // maximo de celulares
