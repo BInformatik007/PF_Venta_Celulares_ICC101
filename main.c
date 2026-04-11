@@ -1,16 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 
 #define MAX 100
 #define VENDIDO 1
 #define NO_VENDIDO 0
 
-void limpiarBufferFunc();
 
 void limpiarBufferFunc(){
     int ch;
     while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
+void presioneParaContinuarFunc(){
+    printf("\nPresione una tecla para continuar...\n");
+    limpiarBufferFunc();
+    getche();
 }
 
 int main() {
@@ -43,6 +49,8 @@ int main() {
             limpiarBufferFunc();
             printf("\nOpci%cn no valida, intente de nuevo: ", 162);
         }
+
+        
 
         system("cls");
 
