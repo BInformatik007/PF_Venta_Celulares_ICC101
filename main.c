@@ -23,6 +23,8 @@ int main()
     d*/
 
 
+
+
     int n = 0; // maximo de celulares
     int totalRegistrados = 0; // celulares registrados hasta ahora
 
