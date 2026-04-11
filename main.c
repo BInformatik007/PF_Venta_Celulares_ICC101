@@ -6,6 +6,13 @@
 #define VENDIDO 1
 #define NO_VENDIDO 0
 
+void presioneParaContinuar(){
+    printf("\nPresione una tecla para continuar...\n");
+    fflush(stdin);
+    getchar();
+    system("cls");
+}
+
 int main() {
 
     int n = 0; // maximo de celulares
