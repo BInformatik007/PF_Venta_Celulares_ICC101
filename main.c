@@ -8,15 +8,6 @@
 
 int main() {
 
-    #define MAX 100
-#define VENDIDO 1
-#define NO_VENDIDO 0#define MAX 100
-#define VENDIDO 1
-#define NO_VENDIDO 0
-
-    //dshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-//awgggggggggggggggggggggggggggggggggggggggggggggggggggdsh
-
     int n = 0; // maximo de celulares
     int totalRegistrados = 0; // celulares registrados hasta ahora
 
