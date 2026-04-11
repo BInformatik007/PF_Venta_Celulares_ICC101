@@ -9,6 +9,20 @@
 int main() 
 {
 
+    /* zjbvnosdinzdpommdfpodfkopdfokp
+    dxf
+    dxjgdxj
+    xdfj
+    fdj
+    xfdj
+    xfdj
+    fxjd
+    jfd
+    jdx
+    
+    d*/
+
+
     int n = 0; // maximo de celulares
     int totalRegistrados = 0; // celulares registrados hasta ahora
 
