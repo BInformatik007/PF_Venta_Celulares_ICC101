@@ -6,6 +6,13 @@
 #define VENDIDO 1
 #define NO_VENDIDO 0
 
+void limpiarBufferFunc();
+
+void limpiarBufferFunc(){
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
 int main() {
 
     int n = 0; // maximo de celulares
@@ -28,13 +35,13 @@ int main() {
         printf("3. Consultar Inventario de Celular\n");
         printf("4. Consultar Ventas x Marca\n");
         printf("5. Generar Solicitud Compra Celulares\n");
-        printf("6. salir\n");
+        printf("6. Salir\n");
 
         printf("\nSeleccione opci%cn: ",162);
         while(scanf("%d", &opcion) != 1 || opcion < 1 || opcion > 6){
 
-            while(getchar() != '\n');
-            printf("\nOpcion no valida, intente de nuevo: ");
+            limpiarBufferFunc();
+            printf("\nOpci%cn no valida, intente de nuevo: ", 162);
         }
 
         system("cls");
@@ -48,7 +55,7 @@ int main() {
                 printf("Favor introduzca la cantidad total de celulares a registrar: ");
                     while(scanf("%d", &n) != 1 || n <= 0){
 
-                        while(getchar() != '\n');
+                        limpiarBufferFunc();
                         printf("Cantidad no valida: ");
                     }
                 }
