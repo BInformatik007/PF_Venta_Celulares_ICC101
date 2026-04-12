@@ -18,6 +18,86 @@ void presioneParaContinuarFunc(){
     getche();
 }
 
+int idExiste(int totalRegistrados, int idsCelulares[MAX], int id){
+
+    for(int i = 0; i < totalRegistrados; i++){
+
+        if(idsCelulares[i] == id){
+            return 1; // existe
+        }
+    }
+    return 0; // no existe
+}
+
+int registrarCelular(int *n, int totalRegistrados, int idsCelulares[MAX], char marcas[MAX][25], float almacenamiento[MAX], float ram[MAX], float precios[MAX], int vendido[MAX]){
+
+    if(*n == 0){
+        printf("Favor introduzca la cantidad total de celulares a registrar: ");
+        while(scanf("%d", n) != 1 || *n <= 0){
+            limpiarBufferFunc();
+            printf("Cantidad no valida: ");
+        }
+    }
+
+    printf("\n************ R E G I S T R O  C E L U L A R E S ************\n");
+
+    char continuar = 'S';
+
+    while(continuar == 'S' || continuar == 's'){
+
+        if(totalRegistrados >= *n){
+            printf("\nCapacidad maxima de celulares alcanzada.\n");
+            break;
+        }
+
+        printf("\nIntroducir los datos del celular No.%d\n", totalRegistrados + 1);
+
+        int idTemp;
+        printf("ID: ");
+        while(scanf("%d", &idTemp) != 1 || idTemp <= 0 || idExiste(totalRegistrados, idsCelulares, idTemp)){
+
+            limpiarBufferFunc();
+            if(idTemp <= 0){
+                printf("ID debe ser mayor a 0: ");
+            } else {
+                printf("ID ya existe, ingrese uno diferente: ");
+            }
+        }
+        idsCelulares[totalRegistrados] = idTemp; 
+
+        printf("Marca: ");
+        limpiarBufferFunc();
+        gets(marcas[totalRegistrados]);
+
+        printf("Almacenamiento(GB): ");
+        while(scanf("%f", &almacenamiento[totalRegistrados]) != 1 || almacenamiento[totalRegistrados] <= 0){
+            limpiarBufferFunc();
+            printf("Almacenamiento no valido: ");
+        }
+
+        printf("Memoria RAM(GB): ");
+        while(scanf("%f", &ram[totalRegistrados]) != 1 || ram[totalRegistrados] <= 0){
+            limpiarBufferFunc();
+            printf("RAM no valida: ");
+        }
+
+        printf("Precio de Venta: ");
+        while(scanf("%f", &precios[totalRegistrados]) != 1 || precios[totalRegistrados] <= 0){
+            limpiarBufferFunc();
+            printf("Precio no valido: ");
+        }
+
+        vendido[totalRegistrados] = NO_VENDIDO;
+        totalRegistrados++;
+
+        printf("\nDesea registrar otro celular(S/N)?: ");
+        limpiarBufferFunc();
+        scanf(" %c", &continuar);
+    }
+
+    return totalRegistrados;
+}
+
 int main() {
 
     int n = 0; // maximo de celulares
@@ -54,80 +134,8 @@ int main() {
         switch(opcion){
 
             case 1:
-
-                if(n == 0){
-
-                printf("Favor introduzca la cantidad total de celulares a registrar: ");
-                    while(scanf("%d", &n) != 1 || n <= 0){
-
-                        limpiarBufferFunc();
-                        printf("Cantidad no valida: ");
-                    }
-                }
-                printf("\n************ R E G I S T R O  C E L U L A R E S ************\n");
-
-                char continuar = 'S';
-                while(continuar == 'S' || continuar == 's'){
-
-                    if(totalRegistrados >= n){
-
-                        system("cls");
-                        printf("\nCapacidad maxima de celulares alcanzada.\n");
-                        break;
-                    }
-
-                    printf("\nIntroducir los datos del celular No.%d\n", totalRegistrados + 1);
-                    
-                    printf("ID: ");
-                    while(scanf("%d", &idsCelulares[totalRegistrados]) != 1 || idsCelulares[totalRegistrados] <= 0){
-
-                        limpiarBufferFunc();
-                        printf("\nID no valido: ");
-                    }
-                    
-                    printf("Marca: ");
-                    limpiarBufferFunc();
-                    gets(marcas[totalRegistrados]);
-                    
-                    printf("Almacenamiento(GB): ");
-                    while(scanf("%f", &almacenamiento[totalRegistrados]) != 1 || almacenamiento[totalRegistrados] <= 0){
-
-                        limpiarBufferFunc();
-                        printf("\nAlmacenamiento no valido: ");
-                    }
-                    
-                    printf("Memoria RAM(GB): ");
-                    while(scanf("%f", &ram[totalRegistrados]) != 1 || ram[totalRegistrados] <= 0){
-
-                        limpiarBufferFunc();
-                        printf("\nRAM no valida: ");
-                    }
-                    
-                    printf("Precio de Venta: ");
-                    while(scanf("%f", &precios[totalRegistrados]) != 1 || precios[totalRegistrados] <= 0){
-
-                        limpiarBufferFunc();
-                        printf("\nPrecio no valido: ");
-                    }
-                    
-                    vendido[totalRegistrados] = NO_VENDIDO;
-                    totalRegistrados++;
-                    
-                    printf("\nDesea registrar otro celular(S/N)?: ");
-                    while(scanf(" %c", &continuar) != 1 || (continuar != 's' && continuar != 'n' && continuar != 'S' && continuar != 'N')){
-
-                        limpiarBufferFunc();
-                        printf("\nDato Inv%clido, intente de nuevo: ", 160);
-
-                    }
-
-                    if(continuar == 'n' || continuar == 'N'){
-                        
-                        system("cls");
-                        break;
-                    }
-            
-                }
+                totalRegistrados = registrarCelular(&n, totalRegistrados, idsCelulares, marcas, almacenamiento, ram, precios, vendido);
+                system("cls");
                 break;
 
             case 2:
@@ -151,10 +159,7 @@ int main() {
                 printf("\nSaliendo del programa....\n");
                 break;
 
-
-
         }
-
 
     }while(opcion != 6);
     
