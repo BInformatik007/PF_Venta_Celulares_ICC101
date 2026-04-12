@@ -177,8 +177,8 @@ int main() {
 
     int idsCelulares[MAX];
     char marcas[MAX][25];
-    int almacenamiento[MAX];
-    int ram[MAX];
+    float almacenamiento[MAX];
+    float ram[MAX];
     float precios[MAX];
     int vendido[MAX];
 
