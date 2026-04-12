@@ -471,6 +471,7 @@ int main() {
             case 1:
                 totalRegistrados = registrarCelular(&n, totalRegistrados, idsCelulares, marcas, almacenamiento, ram, precios, vendido);
                 system("cls");
+
                 break;
 
             case 2:
