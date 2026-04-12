@@ -219,7 +219,13 @@ int venderCelular(int totalRegistrados, int idsCelulares[MAX], char marcas[MAX][
 
                     printf("\nDesea continuar con la compra(S/N)?: ");
                     limpiarBufferFunc();
-                    scanf(" %c", &continuar);
+                    scanf(" %c", &continuar); 
+                    while(continuar != 'S' && continuar != 's' && continuar != 'N' && continuar != 'n'){
+
+                        limpiarBufferFunc();
+                        printf("Opcion no valida, ingrese S o N: ");
+                        scanf(" %c", &continuar);
+                    }
 
                     if(continuar == 'S' || continuar == 's'){
 
@@ -359,7 +365,13 @@ int venderCelular(int totalRegistrados, int idsCelulares[MAX], char marcas[MAX][
 
                     printf("\nDesea continuar con la compra(S/N)?: ");
                     limpiarBufferFunc();
-                    scanf(" %c", &continuar);
+                    scanf(" %c", &continuar); 
+                    while(continuar != 'S' && continuar != 's' && continuar != 'N' && continuar != 'n'){
+
+                        limpiarBufferFunc();
+                        printf("Opcion no valida, ingrese S o N: ");
+                        scanf(" %c", &continuar);
+                    }
 
                     if(continuar == 'S' || continuar == 's'){
                         vendido[posicion] = VENDIDO;
@@ -487,9 +499,9 @@ void consultarInventario(int totalRegistrados, int idsCelulares[MAX], char marca
 
             printf("\n--------------------------------------------------------------------------------------------------------\n");
 
-            printf(" %-40s %12.2f", "Monto Total Registrado:", montoRegistrado);
-            printf("\n %-40s %12.2f", "Monto Total Inventario:", montoInventario);
-            printf("\n %-40s %12.2f\n", "Monto Total Vendido:", montoVendido);
+            printf(" %-40s %.2f", "Monto Total Registrado:", montoRegistrado);
+            printf("\n %-40s %.2f", "Monto Total Inventario:", montoInventario);
+            printf("\n %-40s %.2f\n", "Monto Total Vendido:", montoVendido);
             
             presioneParaContinuarFunc();
 
@@ -497,6 +509,109 @@ void consultarInventario(int totalRegistrados, int idsCelulares[MAX], char marca
     }
     return;
 }
+
+void consultarVentasMarca(int totalRegistrados, int idsCelulares[MAX], char marcas[MAX][25], float almacenamiento[MAX], float ram[MAX], float precios[MAX], int vendido[MAX]){
+
+   if(totalRegistrados == 0){
+        printf("\nNo hay celulares registrados para consultar ventas por marca.\n");
+        return;
+    }
+
+    // encontrar marcas unicas
+    char marcasUnicas[MAX][25];
+    int totalMarcas = 0;
+
+    for(int i = 0; i < totalRegistrados; i++){
+
+        int existe = 0;
+
+        for(int indiceMarca = 0; indiceMarca < totalMarcas; indiceMarca++){
+
+            if(strcasecmp(marcas[i], marcasUnicas[indiceMarca]) == 0){
+
+                existe = 1;
+                break;
+            }
+        }
+
+         if(existe == 0){
+
+            strcpy(marcasUnicas[totalMarcas], marcas[i]);
+            totalMarcas++;
+            }
+    }
+
+
+    // totales por marca y rango
+    // [marca][0]=ram 6-10, [marca][1]=ram 12-16, [marca][2]=alm 64-128, [marca][3]=alm 256-512
+    float totales[MAX][4];
+
+    for(int indiceMarca = 0; indiceMarca < totalMarcas; indiceMarca++){
+
+        for(int rango = 0; rango < 4; rango++){
+
+            totales[indiceMarca][rango] = 0.0f;
+        }
+    }
+
+     for(int i = 0; i < totalRegistrados; i++){
+
+        if(vendido[i] == VENDIDO){
+
+            for(int indiceMarca = 0; indiceMarca < totalMarcas; indiceMarca++){
+
+                if(strcasecmp(marcas[i], marcasUnicas[indiceMarca]) == 0){
+
+                    if(ram[i] >= 6 && ram[i] <= 10)  
+                    totales[indiceMarca][0] += precios[i];
+
+                    if(ram[i] >= 12 && ram[i] <= 16) 
+                    totales[indiceMarca][1] += precios[i];
+
+                    if(almacenamiento[i] >= 64 && almacenamiento[i] <= 128)   
+                    totales[indiceMarca][2] += precios[i];
+
+                    if(almacenamiento[i] >= 256 && almacenamiento[i] <= 512)  
+                    totales[indiceMarca][3] += precios[i];
+
+                    break;
+                }
+            }
+        }
+    }
+
+    printf("\n************ V E N T A S  D E  C E L U L A R E S  X  M A R C A ************\n\n");
+    printf("\n%-16s", " ");
+    printf("%34s", "MEMORIA RAM(GB)");
+    printf("%50s\n", "ALMACENAMIENTO(GB)");
+    printf("%-16s", " ");
+    printf("%45s %47s\n", "----------------------------------", "--------------------------------------");
+    printf("%-16s", " ");
+    printf("%20s %22s", "6 - 10", "12 - 16");
+    printf("%22s %25s\n", "64 - 128", "256 - 512");
+    printf("%-16s", " ");
+    printf("%24s %20s", "-------------", "-------------");
+    printf("%23s %23s\n", "-------------", "-------------");
+
+    float totalGeneral[4] = {0, 0, 0, 0};
+
+     for(int indiceMarca = 0; indiceMarca < totalMarcas; indiceMarca++){
+
+        printf("%-20s %14.2f %21.2f %21.2f %23.2f\n",marcasUnicas[indiceMarca],totales[indiceMarca][0], totales[indiceMarca][1],
+            totales[indiceMarca][2], totales[indiceMarca][3]);
+
+        for(int rango = 0; rango < 4; rango++){
+
+            totalGeneral[rango] += totales[indiceMarca][rango];
+        }
+    }
+            
+    printf("                         --------------------------------------------------------------------------------------\n");
+    printf("%-20s %14.2f %21.2f %21.2f %23.2f\n",
+        "Total General:", totalGeneral[0], totalGeneral[1],totalGeneral[2], totalGeneral[3]);
+
+    presioneParaContinuarFunc();
+}   
 
 int main() {
 
@@ -559,6 +674,7 @@ int main() {
 
             case 4:
 
+                consultarVentasMarca(totalRegistrados, idsCelulares, marcas, almacenamiento, ram, precios, vendido);
                 
                 break;
 
