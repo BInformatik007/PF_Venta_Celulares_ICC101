@@ -290,6 +290,7 @@ int venderCelularFunc(int totalRegistrados, int idsCelulares[MAX], char marcas[M
                             (precios[i] == precios[peor] && ram[i] == ram[peor] && almacenamiento[i] > almacenamiento[peor])){
                                 
                                 mejor2 = i;
+
                                 //aqui ordena el mejor1 ya que debe tener el mejor
                                 if(precios[mejor2] < precios[mejor1] ||
                                 (precios[mejor2] == precios[mejor1] && ram[mejor2] > ram[mejor1]) ||
@@ -397,7 +398,7 @@ int venderCelularFunc(int totalRegistrados, int idsCelulares[MAX], char marcas[M
 
 
     presioneParaContinuarFunc();
-    system("cls");
+    //system("cls");
     return 0;
 }
 
@@ -771,7 +772,7 @@ void generarSolicitudCompraFunc(int totalRegistrados, char marcas[MAX][25], floa
         }
     }
 
-    printf("%s %29s %26s %30s", "\n-------------------", "---------------", "------------------", "--------------------\n");
+    printf("%s %29s %26s %30s", "\n-------------------", "---------------", "------------------", "  --------------------\n");
 
     presioneParaContinuarFunc();
 }
